@@ -44,8 +44,20 @@ app.get('/help', (req, res) => {
 
 app.get('/weather', (req, res) => {
     if (!req.query.address) {
-        return res.send({
-            error: 'You must provide an address!'
+        if (!req.query.latitude || !req.query.longtitude) {
+            return res.send({
+                error: 'You must provide an address! Or you can only check your currernt location!'
+            })
+        }
+
+        return forecast(req.query.longtitude, req.query.latitude, (error, forecastData) => {
+            if (error) {
+                return res.send({ error })
+            }
+
+            res.send({
+                forecast: forecastData
+            })
         })
     }
 
