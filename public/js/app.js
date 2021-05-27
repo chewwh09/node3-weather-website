@@ -29,6 +29,7 @@ myLocationButton.addEventListener('click', (event) => {
     messageOne.textContent = 'Loading...'
     messageTwo.textContent = ''
 
+    // navigator.geolocation.getCurrentPosition is in build google console method.
     navigator.geolocation.getCurrentPosition((position) => {
         fetch(`/weather?latitude=${position.coords.latitude}&longtitude=${position.coords.longitude}`).then((response) => {
             response.json().then((data) => {
